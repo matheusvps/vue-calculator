@@ -10,12 +10,14 @@
             @handle-press="handlePress"
             :style="{ width: getButtonWidth(button) }"
         />
+        <Signature/>
     </div>
   </template>
 
 <script>
 import Display from '../components/Display.vue';
 import Buttons from '../components/Button.vue';
+import Signature from '../components/Signature.vue';
 import { buttons } from '../utils/buttons';
 import { notify } from '../utils/functions';
 
@@ -33,6 +35,7 @@ export default {
   components: {
     Display,
     Buttons,
+    Signature,
   },
   methods: {
     handlePress(event) {
@@ -179,7 +182,7 @@ export default {
     box-sizing: border-box;
     border: 10px solid black;
     border-radius: 10px;
-    height: 700px;
+    height: 720px;
     overflow: hidden;
     box-shadow: 5px 5px 5px #4b4b4c;
   }
