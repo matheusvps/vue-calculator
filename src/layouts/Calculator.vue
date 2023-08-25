@@ -17,6 +17,7 @@
 import Display from '../components/Display.vue';
 import Buttons from '../components/Button.vue';
 import { buttons } from '../utils/buttons';
+import { notify } from '../utils/functions';
 
 export default {
   data() {
@@ -67,7 +68,7 @@ export default {
         case '\u00b1': this.negateValue();
           break;
         default:
-          alert('KEY ERROR: in default');
+          notify('KEY ERROR: in default');
       }
     },
     negateValue() {
@@ -89,7 +90,7 @@ export default {
         this.computeEqual(this.prevValue, this.dispValue, this.prevOp);
         this.subDispValue = '';
       } catch (e) {
-        alert(e);
+        notify(e);
       }
     },
     numberPressed(number) {
@@ -97,22 +98,22 @@ export default {
       if (this.dispValue === '0') {
         this.dispValue = number;
       } else if (this.dispValue.length >= 15) {
-        alert('Limite máximo de digitos alcançado');
+        notify('Limite máximo de digitos alcançado');
       } else {
         this.dispValue += number;
       }
     },
     computePlus() {
-      this.dispValue = this.computeOps(this.prevValue, this.dispValue, '+');
+      this.dispValue = this.computeOp(this.prevValue, this.dispValue, '+');
     },
     computeSub() {
-      this.dispValue = this.computeOps(this.prevValue, this.dispValue, '-');
+      this.dispValue = this.computeOp(this.prevValue, this.dispValue, '-');
     },
     computeDiv() {
-      this.dispValue = this.computeOps(this.prevValue, this.dispValue, '/');
+      this.dispValue = this.computeOp(this.prevValue, this.dispValue, '/');
     },
     computeMult() {
-      this.dispValue = this.computeOps(this.prevValue, this.dispValue, 'x');
+      this.dispValue = this.computeOp(this.prevValue, this.dispValue, 'x');
     },
     computeOp(op) {
       if (!this.opInEffect) {
@@ -124,7 +125,7 @@ export default {
           this.subDispValue = `${this.prevValue.toString()} ${this.prevOp}    `;
           this.opInEffect = true;
         } catch (e) {
-          alert(e);
+          notify(e);
         }
       }
     },
@@ -140,7 +141,7 @@ export default {
         result = Op1Num * Op2Num;
       } else if (op === '/') {
         if (Op2Num === 0) {
-          alert('Não é possível dividir por zero');
+          notify('Não é possível dividir por zero');
         } else {
           result = Op1Num / Op2Num;
         }
@@ -148,10 +149,7 @@ export default {
         result = Op2Num;
       }
       const temp = result.toString();
-      if (temp.length >= 15) {
-        alert('DISPLAY ERROR: O resultado não caberá no display. Use C ou AC para gerar novos resultados mais simples');
-      }
-      this.dispValue = temp;
+      this.dispValue = parseFloat(temp).toFixed(4).toString();
       this.prevValue = '0';
       this.prevOp = '=';
     },

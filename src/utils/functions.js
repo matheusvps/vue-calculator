@@ -1,6 +1,9 @@
+import { Notify } from 'quasar';
+
 const notify = function (message) {
-  this.$q.Notify.create({
+  Notify.create({
     message,
+    color: 'red',
   });
 };
 
