@@ -39,7 +39,7 @@ export default {
   #display {
     width: 100%;
     border-radius: 5px;
-    height: 200px;
+    height: 180px;
     float: right;
   }
 

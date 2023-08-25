@@ -58,6 +58,7 @@ module.exports = {
     'max-classes-per-file': 'off',
     'func-names': 'off',
     'no-alert': 'off',
+    'no-console': 'off',
 
     'import/first': 'off',
     'import/named': 'error',

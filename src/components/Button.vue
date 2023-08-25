@@ -1,7 +1,7 @@
 <template>
     <div id="vuebutton">
         <button class="calc-button"
-                :click="buttonPressed"
+                @click="buttonPressed"
                 :class="{opButton: bValues.isOp, regButton: bValues.isReg}">
                  {{bValues.name}}
         </button>
@@ -18,6 +18,7 @@ export default {
   },
   methods: {
     buttonPressed(event) {
+      console.debug(event);
       this.$emit('handle-press', event.target);
       const bt = event.target;
       Velocity(
@@ -59,9 +60,9 @@ export default {
   }
 
   .opButton{
-      background-color: #38908f;
+      background-color: green;
   }
   .regButton{
-      background-color: #676767;
+      background-color: brown;
   }
   </style>

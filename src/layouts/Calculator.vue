@@ -1,5 +1,3 @@
-<!-- eslint-disable no-alert -->
-<!-- eslint-disable no-alert -->
 <template>
     <div id="calcWrapper">
         <Display
@@ -9,16 +7,16 @@
         v-for="(button, index) in buttons"
             :key="index"
             :bValues="button"
-            :handle-press="handlePress"
-            :style="getButtonStyle(button)"
+            @handle-press="handlePress"
+            :style="{ width: getButtonWidth(button) }"
         />
     </div>
   </template>
 
 <script>
-import Display from './Display.vue';
-import Buttons from './Buttons.vue';
-import buttons from '../utils/buttons';
+import Display from '../components/Display.vue';
+import Buttons from '../components/Button.vue';
+import { buttons } from '../utils/buttons';
 
 export default {
   data() {
@@ -28,12 +26,6 @@ export default {
       prevValue: '0',
       prevOp: '=',
       opInEffect: false,
-      bStyleObjectRegular: {
-        width: '25%',
-      },
-      bStyleObjectLarge: {
-        width: '49.9%',
-      },
       buttons,
     };
   },
@@ -105,7 +97,7 @@ export default {
       if (this.dispValue === '0') {
         this.dispValue = number;
       } else if (this.dispValue.length >= 15) {
-        alert('KEY ERROR: Display limit reached');
+        alert('Limite máximo de digitos alcançado');
       } else {
         this.dispValue += number;
       }
@@ -148,7 +140,7 @@ export default {
         result = Op1Num * Op2Num;
       } else if (op === '/') {
         if (Op2Num === 0) {
-          alert('MATH ERROR: Cannot divide by 0');
+          alert('Não é possível dividir por zero');
         } else {
           result = Op1Num / Op2Num;
         }
@@ -157,7 +149,7 @@ export default {
       }
       const temp = result.toString();
       if (temp.length >= 15) {
-        alert('DISPLAY ERROR: Computation result will not fit on display. Use C or AC to perform a simpler computation.');
+        alert('DISPLAY ERROR: O resultado não caberá no display. Use C ou AC para gerar novos resultados mais simples');
       }
       this.dispValue = temp;
       this.prevValue = '0';
@@ -173,11 +165,8 @@ export default {
       this.subDispValue = '';
       this.opInEffect = false;
     },
-    getButtonStyle(button) {
-      if (button.id === 1) {
-        return this.bStyleObjectLarge;
-      }
-      return this.bStyleObjectRegular;
+    getButtonWidth(button) {
+      return button.id === 1 ? '49.9%' : '25%';
     },
 
   },
@@ -190,8 +179,8 @@ export default {
     width: 100%;
     margin: auto;
     box-sizing: border-box;
-    border: 15px solid black;
-    border-radius: 5px;
+    border: 10px solid black;
+    border-radius: 10px;
     height: 700px;
     overflow: hidden;
     box-shadow: 5px 5px 5px #4b4b4c;
